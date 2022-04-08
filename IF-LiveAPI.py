@@ -18,7 +18,7 @@ class Api:
         return responser
 
     def flights(self, serverId):
-        #for server id 7e5dcd44-1fb5-49cc-bc2c-a9aab1f6a856 = Expert server
+        # for server id 7e5dcd44-1fb5-49cc-bc2c-a9aab1f6a856 = Expert server
         # to get these id's use the sessions function
 
         url = requests.get(f'https://api.infiniteflight.com/public/v2/flights/{serverId}?apikey={self.apikey}')
@@ -40,7 +40,7 @@ class Api:
         return responser
 
     def ATC(self, serverId):
-        #for session id '7e5dcd44-1fb5-49cc-bc2c-a9aab1f6a856' = Expert server
+        # for session id '7e5dcd44-1fb5-49cc-bc2c-a9aab1f6a856' = Expert server
         # to get these id's use the sessions function
 
         url = requests.get(f'https://api.infiniteflight.com/public/v2/atc/{serverId}?apikey={self.apikey}')
@@ -48,7 +48,7 @@ class Api:
         return responser
 
     def stats(self, username):
-        #IF username
+        # IF username
 
         data_json = {
 
@@ -69,7 +69,7 @@ class Api:
 
 
     def atis(self, airportIcao, serverId):
-        #for server id '7e5dcd44-1fb5-49cc-bc2c-a9aab1f6a856' = Expert server
+        # for server id '7e5dcd44-1fb5-49cc-bc2c-a9aab1f6a856' = Expert server
         # to get these id's use the sessions function
 
         url = requests.get(f'https://api.infiniteflight.com/public/v2/airport/{airportIcao}/atis/{serverId}?apikey={self.apikey}')
@@ -77,7 +77,7 @@ class Api:
         return responser
 
     def airport(self, airportIcao, serverId):
-        #for server id '7e5dcd44-1fb5-49cc-bc2c-a9aab1f6a856' = Expert server
+        # for server id '7e5dcd44-1fb5-49cc-bc2c-a9aab1f6a856' = Expert server
         # to get these id's use the sessions function
 
         url = requests.get(f'https://api.infiniteflight.com/public/v2/airport/{airportIcao}/status/{serverId}?apikey={self.apikey}')
@@ -85,7 +85,7 @@ class Api:
         return responser
 
     def world(self, serverId):
-        #for server id '7e5dcd44-1fb5-49cc-bc2c-a9aab1f6a856' = Expert server
+        # for server id '7e5dcd44-1fb5-49cc-bc2c-a9aab1f6a856' = Expert server
         # to get these ids use the sessions function
 
         url = requests.get(f'https://api.infiniteflight.com/public/v2/world/status/{serverId}?apikey={self.apikey}')
@@ -102,6 +102,26 @@ class Api:
         responser = json.loads(url.text)
         return responser
 
+    def currentUserFlight(self, userId, flightId):
+        url = requests.get(f'https://api.infiniteflight.com/public/v2/users/{userId}/flights/{flightId}?apikey={self.apikey}')
+        responser = json.loads(url.text)
+        return responser
+
+    def userAtcSessions(self, userId):
+        url = requests.get(f'https://api.infiniteflight.com/public/v2/users/{userId}/atc?apikey={self.apikey}')
+        responser = json.loads(url.text)
+        return responser
+
+    def userCurrentAtcSession(self, userId, atcSessionId):
+        url = requests.get(f'https://api.infiniteflight.com/public/v2/users/{userId}/atc/{atcSessionId}?apikey={self.apikey}')
+        responser = json.loads(url.text)
+        return responser
+
+    def notams(self, sessionId):
+        url = requests.get(f'https://api.infiniteflight.com/public/v2/sessions/{sessionId}/notams?apikey={self.apikey}')
+        resposer = json.loads(url.text)
+        return resposer
+
 
 api = Api()
 
@@ -117,6 +137,12 @@ print(api.airport('AIRPORT ICAO', 'SERVER ID'))
 print(api.world('SERVER ID'))
 print(api.oceanicTracks())
 print(api.userFlights('USER ID'))
+print(api.currentUserFlight('userId', 'flightId'))
+print(api.userAtcSessions('user id'))
+print(api.userCurrentAtcSession('userId', 'atcSessionId'))
+print(api.notams('server id'))
+
+
 '''
 it is now up to you to filter it all out! 
 
